@@ -1,15 +1,20 @@
 import { useState, useEffect } from "react";
 
-export const useFetch = (options) => {
+export const useFetch = (url) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch(options.url)
+    fetch(url, {
+      headers : { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       }
+     })
       .then((response) => response.json())
       .then((json) => {
         setData(json);
       });
-  }, [options.url]);
+  }, [url]);
 
   return {
     data,
